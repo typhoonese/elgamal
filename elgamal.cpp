@@ -95,6 +95,15 @@ int main()
              aliceDecryptsMsg)
          << endl;
 
+    //alternative decryption without inversing the masking key from Bob
+    mp::cpp_int alternativeDecryptionOutput = (mp::pow(mp::cpp_int(pubKey_BOB), int(N - 1 - mp::cpp_int(prvKey_ALICE)))) * encryptedMsg % N;
+    cout << "alternative decryption output: " << endl
+         << alternativeDecryptionOutput << endl
+         << "encryption is decrypted: " << endl
+         << (plainMessage ==
+             alternativeDecryptionOutput)
+         << endl;
+
     return 0;
 }
 
@@ -120,7 +129,7 @@ Extended Euclidean algo to compute the inverse
     aliceInversesKey
 
 Fermat's little theorem = x^p-1 = 1 mod p, where p is prime
-    plainText = aliceInversesKey * encryptedMsg = pubKey_BOB^(N-1-prvKey_BOB) *encryptedMsg mod P
+    plainText = aliceInversesKey * encryptedMsg = pubKey_BOB^(N-1-prvKey_ALICE) *encryptedMsg mod P
 
 
 */

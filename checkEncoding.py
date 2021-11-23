@@ -1,3 +1,5 @@
+#checkEncoding checks whether plainText can be encoded into the targetEncodedVal
+#when encoded with the encoding algorithm
 def checkEncoding (plainText, targetEncodedVal):
   #encodedPlainText: to store the value of encoded plainText
   encodedPlainText = 0
@@ -12,7 +14,7 @@ def checkEncoding (plainText, targetEncodedVal):
 
   print ("Encoded Plain Text   : ", targetEncodedVal)
   print ("Target Encoded Value : ", encodedPlainText)
-  print ("Expected - Total: ", targetEncodedVal - encodedPlainText)
+  print ("Target Encoded Value - Encoded Plain Text: ", targetEncodedVal - encodedPlainText)
 
   if (encodedPlainText == targetEncodedVal):
    return plainText
@@ -20,6 +22,6 @@ def checkEncoding (plainText, targetEncodedVal):
 #Enter plain text here
 plainText = "Well done!"
 #Enter the encoded phrase here
-encodedPhrase = 157709172775299964495191
-#Check if plainText encodes to the encodedPhrase. Returns the value of plain text if successful. Returns none otherwise
-print("Correct plain text found: ", checkEncoding (plainText, encodedPhrase))
+targetEncodedVal = 157709172775299964495191
+#Check if plainText encodes to the targetEncodedVal. Returns the value of plain text if successful. Returns none otherwise
+print("Correct plain text found: ", checkEncoding (plainText, targetEncodedVal))

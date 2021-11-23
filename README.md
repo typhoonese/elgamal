@@ -20,7 +20,7 @@ Having studied more lectures and examples, I concluded the following solution st
 
 ### Step 3: Check encoding
 
-Implemented the encoding algorithm in `checkEncoding.py`, which encodes a given $plainText$  and compares it to $M$ . If matched, $X = plainText$ . 
+Implemented the provided encoding algorithm to `checkEncoding.py`, which encodes a given $plainText$ accordingly and compares it to $M$ . If matched, $X = plainText$ . 
 
 
 

@@ -62,6 +62,8 @@ int main()
     mp::cpp_int encryptionKey = mp::pow(mp::cpp_int(pubKey_ALICE), prvKey_BOB) % N;
 
     //Bob encrypts the msg and sends it to Alice along with the ephemeral key (pubKey_BOB)
+    //This is where El Gamal differs from Diffi-Helman:
+    // Encrpted message and the ephemeral key are shared with ALice at the same time.
     mp::cpp_int encryptedMsg = (encryptionKey * plainMessage) % N;
 
     //Alice now has the encrypted message and Bob's public key
@@ -95,3 +97,16 @@ int main()
 
     return 0;
 }
+
+/*
+El Gamal Encryption Notes:
+1. Compations are equivalent between DF and El Gamal 
+2. Alice sticks to her public key in El Gamal. 
+3. N and P are chosen by Alice. 
+4. The ephemeral key must be different for every plain text
+5. Bob is required to used a different private key every time he encryptes 
+so that the ephemeral key and masking key will be different. Even though the same value
+is encrypted, the cipher text would be different. 
+6. El Gamal is a probabilistic encryption scheme as Bob choosing is private key plays 
+the role of randomiser. This key should be between 2 and N-2
+*/

@@ -1,4 +1,4 @@
-#El Gamal Decryption Challenge
+# El Gamal Decryption Challenge
 
 Here's a summary of the approach I took. 
 

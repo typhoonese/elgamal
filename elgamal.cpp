@@ -109,4 +109,18 @@ so that the ephemeral key and masking key will be different. Even though the sam
 is encrypted, the cipher text would be different. 
 6. El Gamal is a probabilistic encryption scheme as Bob choosing is private key plays 
 the role of randomiser. This key should be between 2 and N-2
+
+Computational Aspects: 
+Square and multiplication algorithm can be used to calculate:  
+    pubKey_ALICE
+    pubKey_BOB
+    encryptionKey
+    aliceFindsOutKey
+Extended Euclidean algo to compute the inverse
+    aliceInversesKey
+
+Fermat's little theorem = x^p-1 = 1 mod p, where p is prime
+    plainText = aliceInversesKey * encryptedMsg = pubKey_BOB^(N-1-prvKey_BOB) *encryptedMsg mod P
+
+
 */

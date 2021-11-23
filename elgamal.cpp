@@ -47,19 +47,25 @@ int main()
     int prvKey_BOB = 8;    // number Bob chooses
     int prvKey_ALICE = 13; // number Alice chooses
 
-    //Bob can create a public key to share with Alice
-    mp::cpp_int pubKey_BOB = mp::pow(mp::cpp_int(publicBase), prvKey_BOB) % N;
+    //Bob to send Alice the encrypted message
 
-    //Alice can create a public key to share with Bob
+    //ALice can create a public key to share with Bob
+    //Alice gives Bob her pubKey_ALICE, public base and N
     mp::cpp_int pubKey_ALICE = mp::pow(mp::cpp_int(publicBase), prvKey_ALICE) % N;
 
-    //Bob creates encryption key from what Alice sent him
+    //Bob can create a public key with what Alice provided
+    //it's also referred as the ephemeral key
+    mp::cpp_int pubKey_BOB = mp::pow(mp::cpp_int(publicBase), prvKey_BOB) % N;
+
+    //Bob creates encryption key from what Alice sent him, the pubKey_ALICE
+    //it's also referred as the masking key/session key
     mp::cpp_int encryptionKey = mp::pow(mp::cpp_int(pubKey_ALICE), prvKey_BOB) % N;
 
-    //Bob encrypts the msg and sends it to Alice
+    //Bob encrypts the msg and sends it to Alice along with the ephemeral key (pubKey_BOB)
     mp::cpp_int encryptedMsg = (encryptionKey * plainMessage) % N;
 
-    //Alice first needs to figure out the encryption key Bob used
+    //Alice now has the encrypted message and Bob's public key
+    //ALice first needs to figure out the encryption key Bob used
     mp::cpp_int aliceFindsOutKey = mp::pow(mp::cpp_int(pubKey_BOB), prvKey_ALICE) % N;
 
     //Alice then needs to calculate the inverse the key

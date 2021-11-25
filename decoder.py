@@ -4,7 +4,8 @@ from random import *
 def encode(asciiCode, n):  # encodes x.....x (n times) where asciiCode represents x
     targetEncoding = 0
     for i in range(n):
-        targetEncoding += (256 ** i) * asciiCode
+        targetEncoding += (256 ** i) * (asciiCode)
+    # targetEncoding += (256 ** n-1) * (asciiCode)
     return targetEncoding
 
 
@@ -32,30 +33,30 @@ def isDiffBigger(asciiCode, guessLength, targetEncoding):
 def find(start, end, targetEncoding, guessLength, asciiChars):
 
     if (end >= start and guessLength > 0):
-        mid = (end+start) // 2
-        tempEncoding = encode(mid, guessLength)
+        asciiCode = (end+start) // 2
+        tempEncoding = encode(asciiCode, guessLength)
 
         print("targetEncoding  : ", targetEncoding)
         print("tempEncoding    : ", tempEncoding)
         print("diff            : ", targetEncoding - tempEncoding)
         print("start: ", start)
         print("end  : ", end)
-        print("mid  : ", mid)
+        print("asciiCode  : ", asciiCode)
         print("*******************************")
 
         # diff needs to get smaller
-        if(not isDiffBigger(mid, guessLength, targetEncoding)):
-            return find(start, mid-1, targetEncoding, guessLength, asciiChars)
+        if(not isDiffBigger(asciiCode, guessLength, targetEncoding)):
+            return find(start, asciiCode-1, targetEncoding, guessLength, asciiChars)
 
         # should find the first ascii char that makes targetEncoding-tempEncoding positive
-        if (isDiffBigger(mid, guessLength, targetEncoding)):
-            # need to check if mid is the first positive diff
-            if(isDiffBigger(mid+1, guessLength, targetEncoding)):
+        if (isDiffBigger(asciiCode, guessLength, targetEncoding)):
+            # need to check if asciiCode is the first positive diff
+            if(isDiffBigger(asciiCode+1, guessLength, targetEncoding)):
                 # diff needs to get bigger
-                return find(mid+1, end, targetEncoding, guessLength, asciiChars)
+                return find(asciiCode+1, end, targetEncoding, guessLength, asciiChars)
             else:
-                asciiChars.append(mid)
-                return mid, targetEncoding - encodeChar(mid, guessLength-1), guessLength-1, asciiChars
+                asciiChars.append(asciiCode)
+                return asciiCode, targetEncoding - encodeChar(asciiCode, guessLength-1), guessLength-1, asciiChars
     else:
         return -1
 

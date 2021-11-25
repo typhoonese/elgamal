@@ -3,9 +3,10 @@ from random import *
 
 def encode(asciiCode, n):  # encodes x.....x (n times) where asciiCode represents x
     targetEncoding = 0
-    for i in range(n):
-        targetEncoding += (256 ** i) * (asciiCode)
-    # targetEncoding += (256 ** n-1) * (asciiCode)
+
+    for i in range(n-1):
+        targetEncoding += (256 ** i) * (32)
+    targetEncoding += (256 ** (n-1)) * (asciiCode)
     return targetEncoding
 
 
@@ -36,13 +37,13 @@ def find(start, end, targetEncoding, guessLength, asciiChars):
         asciiCode = (end+start) // 2
         tempEncoding = encode(asciiCode, guessLength)
 
-        print("targetEncoding  : ", targetEncoding)
-        print("tempEncoding    : ", tempEncoding)
-        print("diff            : ", targetEncoding - tempEncoding)
-        print("start: ", start)
-        print("end  : ", end)
-        print("asciiCode  : ", asciiCode)
-        print("*******************************")
+        # print("targetEncoding  : ", targetEncoding)
+        # print("tempEncoding    : ", tempEncoding)
+        # print("diff            : ", targetEncoding - tempEncoding)
+        # print("start: ", start)
+        # print("end  : ", end)
+        # print("asciiCode  : ", asciiCode)
+        # print("*******************************")
 
         # diff needs to get smaller
         if(not isDiffBigger(asciiCode, guessLength, targetEncoding)):
@@ -67,12 +68,16 @@ def main():
     end = 127  # ascii code
     # targetEncoding = 391565397484887
     # guessLength = 6  # number of letters encoded
-    targetEncoding = 157709172775299964495191
-    guessLength = 10
+    targetEncoding = 87
+    guessLength = 1
     asciiChars = []  # store the decoded asci codes
 
-    print("In main: ", find(start, end, targetEncoding,
-          guessLength, asciiChars))
+    result = find(start, end, targetEncoding, guessLength, asciiChars)
+    print("In main: ", result)
+
+    if(not result == -1):
+        (asciiCode, diff, left, arr) = result
+        print("char: ", translateAscii(arr))
 
 
 if (__name__ == "__main__"):

@@ -63,7 +63,7 @@ def decode(start, end, targetEncoding, guessLength):
         return -1
 
 
-def guessLength(targetEncoding):
+def guessLength(targetEncoding):  # guesses the length of the decoded phrase
     i = 0
     guessEncoding = 0
     while (targetEncoding >= guessEncoding):
@@ -79,16 +79,19 @@ def main():
     # guesses the length of the decoded phrase
     length = guessLength(targetEncoding)
 
-    # min possible ascii code in decoded phrase
+    # min readable ascii code in decoded phrase
     start = ord(" ")
-    # max possible ascii code in decoded phrase
+    # max readable ascii code in decoded phrase
     end = ord("~")
-    # store the decoded asci codes in reverse order
+    # asciiChars to store the decoded asci codes in reverse order
     asciiChars = []
 
+    # loop runs until all ascii codes are found. when a code is found, the length of  the to-be decoded phrase is decreased by one
     while (length > 0):
+        # decode one of the ascii codes
         result = decode(start, end, targetEncoding, length)
         if(not result == -1):
+            # recursively returns the decoded ascii code and remaining of targetEncoding and the length
             (asciiCode, targetEncoding, length) = result
             asciiChars.append(asciiCode)
         else:

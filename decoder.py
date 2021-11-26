@@ -1,7 +1,6 @@
 # Implements a recursive binary search approach to decode a given encoded value to readable form
 # The encoding algorithm can be found in def encode.
 
-from random import *
 import utils.encode
 import utils.plainText
 

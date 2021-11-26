@@ -1,7 +1,8 @@
 from random import *
+import utils.plainText
 
 
-def guessAscii(targetEncodedVal, guessLength):
+def guess(targetEncodedVal, guessLength):
 
     encodedGuess = 0
     while (encodedGuess != targetEncodedVal):
@@ -18,19 +19,11 @@ def guessAscii(targetEncodedVal, guessLength):
         return asciiChars
 
 
-def translateAscii(asciiChars):
-    decodedPhrase = ""
-    for code in asciiChars:
-        decodedPhrase += str(chr(code))
-    return decodedPhrase
-
-
 def main():
     targetEncodedVal = int(input("Input the encoded value to be decoded: "))
-    guessLength = int(input("Guess the length of decoded pharase: "))
-
-    print("Correct plain text found: ", translateAscii(
-        guessAscii(targetEncodedVal, guessLength)))
+    guessLength = utils.plainText.guessLength(targetEncodedVal)
+    print("Correct plain text found: ", utils.plainText.translateFromAscii(
+        guess(targetEncodedVal, guessLength)))
 
 
 if (__name__ == "__main__"):

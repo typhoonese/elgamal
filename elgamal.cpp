@@ -133,3 +133,16 @@ Fermat's little theorem = x^p-1 = 1 mod p, where p is prime
 
 
 */
+
+/*
+ALternative flow: 
+1. Alice computes public key (A) = g^a mod p, where a is the private key and g is the public generator
+3. Alice sends the public key, g and p to Bob 
+2. Bob  creates an ephemeral key, k 
+3. Bob computes C1 = g^k mod p, 
+4. Bob computes C2 = m * A^k mod p
+5. Alice computes x and x^-1
+    x = c1 mod p and then x^-1 
+6. ALice decrypts the message
+    m = c2 * x^-1 mod p
+*/

@@ -8,7 +8,7 @@ def guessAscii(targetEncodedVal, guessLength):
         encodedGuess = 0
         asciiChars = []
         for i in range(guessLength):
-            guessAscii = randint(32, 127)
+            guessAscii = randint(ord(" "), ord("~"))
             encodedGuess += (256 ** i) * guessAscii
             asciiChars.append(guessAscii)
 

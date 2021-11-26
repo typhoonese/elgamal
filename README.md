@@ -25,6 +25,9 @@ Implemented the provided encoding algorithm to `checkEncoding.py`, which encodes
 ### decoder.py
 - `decoder.py` implements a recursive binary search of an ascii code, `n`, to decode the encoded value. The search criteria is based on minimising the difference between the encoded value and a temp encoding, where the temp encoding encodes `.....n` with the provided `encode ` function. All letters before `n` is assumed to be white space (ascii code `32`) for encoding. 
 
+### moduloDecoder.py 
+- `moduloDecoder.py` implements an algorithm that decodes a message stored in ascii codes with 256 base
+
 ### guesser.py 
 - `guesser.py` implements an algorithm that generates a random assortment of ascii characters from 32 to 126 of a given length and comprase its encoding to the target encoded value. If the encoding of the randomly generated string matches the target encoded value, the algorithm finds the correct phrase and translate the ascii codes to a readable form. 
 

@@ -63,12 +63,21 @@ def decode(start, end, targetEncoding, guessLength):
         return -1
 
 
+def guessLength(targetEncoding):
+    i = 0
+    guessEncoding = 0
+    while (targetEncoding >= guessEncoding):
+        i += 1
+        guessEncoding = encode(ord(" "), i)
+    return i-1
+
+
 def main():
 
     # encoded value - 157709172775299964495191
     targetEncoding = int(input("Input the encoded value to be decoded: "))
-    # estimated length - 10. TODO: can be automated instead of hardcoding
-    guessLength = int(input("Guess the length of decoded phrase: "))
+    # guesses the length of the decoded phrase
+    length = guessLength(targetEncoding)
 
     # min possible ascii code in decoded phrase
     start = ord(" ")
@@ -77,10 +86,10 @@ def main():
     # store the decoded asci codes in reverse order
     asciiChars = []
 
-    while (guessLength > 0):
-        result = decode(start, end, targetEncoding, guessLength)
+    while (length > 0):
+        result = decode(start, end, targetEncoding, length)
         if(not result == -1):
-            (asciiCode, targetEncoding, guessLength) = result
+            (asciiCode, targetEncoding, length) = result
             asciiChars.append(asciiCode)
         else:
             print("Exited with -1")

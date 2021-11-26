@@ -2,30 +2,13 @@
 # The encoding algorithm can be found in def encode.
 
 from random import *
-
-
-def encode(asciiCode, n):  # encodes .....x (n chars) where asciiCode represents x and all chars before are " "
-    targetEncoding = 0
-    for i in range(n-1):
-        targetEncoding += (256 ** i) * (ord(" "))
-    targetEncoding += (256 ** (n-1)) * (asciiCode)
-    return targetEncoding
-
-
-def encodeChar(asciiCode, n):  # encodes the value of a particular ascii code at position n
-    return (256 ** n) * asciiCode
-
-
-def translateAscii(asciiCodes):  # translates ascii codes (arr) to readable form
-    decodedPhrase = ""
-    for code in asciiCodes:
-        decodedPhrase += str(chr(code))
-    return decodedPhrase
+import utils.encode
+import utils.plainText
 
 
 # returns true if target encoding is bigger than or equal to temp encoding
 def isDiffBigger(asciiCode, guessLength, targetEncoding):
-    tempEncoding = encode(asciiCode, guessLength)
+    tempEncoding = utils.encode.encodePhrase(asciiCode, guessLength)
     if (targetEncoding - tempEncoding >= 0):
         return 1
     else:
@@ -37,7 +20,7 @@ def decode(start, end, targetEncoding, guessLength):
 
     if (end >= start and guessLength > 0):
         asciiCode = (end+start) // 2
-        tempEncoding = encode(asciiCode, guessLength)
+        tempEncoding = utils.encode.encodePhrase(asciiCode, guessLength)
 
         # print("targetEncoding  : ", targetEncoding)
         # print("tempEncoding    : ", tempEncoding)
@@ -58,18 +41,9 @@ def decode(start, end, targetEncoding, guessLength):
                 # diff needs to get bigger
                 return decode(asciiCode+1, end, targetEncoding, guessLength)
             else:
-                return asciiCode, targetEncoding - encodeChar(asciiCode, guessLength-1), guessLength-1
+                return asciiCode, targetEncoding - utils.encode.encodeChar(asciiCode, guessLength-1), guessLength-1
     else:
         return -1
-
-
-def guessLength(targetEncoding):  # guesses the length of the decoded phrase
-    i = 0
-    guessEncoding = 0
-    while (targetEncoding >= guessEncoding):
-        i += 1
-        guessEncoding = encode(ord(" "), i)
-    return i-1
 
 
 def main():
@@ -77,7 +51,7 @@ def main():
     # encoded value - 157709172775299964495191
     targetEncoding = int(input("Input the encoded value to be decoded: "))
     # guesses the length of the decoded phrase
-    length = guessLength(targetEncoding)
+    length = utils.plainText.guessLength(targetEncoding)
 
     # min readable ascii code in decoded phrase
     start = ord(" ")
@@ -97,7 +71,8 @@ def main():
         else:
             print("Exited with -1")
 
-    print("Decoded phrase: ", translateAscii(asciiChars)[::-1])
+    print("Decoded phrase: ",
+          utils.plainText.translateFromAscii(asciiChars)[::-1])
 
 
 if (__name__ == "__main__"):
